@@ -21,7 +21,7 @@ app.use(express.static('public'));
 // Define a basic route
 app.use('/api/user', userRoutes);
 // Start the server
-const port = 3000;
+const port = 9000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
