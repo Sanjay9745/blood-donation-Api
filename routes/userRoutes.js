@@ -56,4 +56,17 @@ router.get("/all", async (req, res) => {
         res.status(500).json(error);
     }
 })
+router.get("/users/:district/:blood_group", async (req, res) => {
+    try {
+        const {district,blood_group} = req.params;
+        console.log(district,blood_group);
+        const users = await User.find();
+        //find users with district and blood group
+        const filteredUsers = users.filter(user => user.district === district && user.blood_group === blood_group);
+        res.status(200).json(filteredUsers);
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+});
 module.exports = router;
