@@ -69,4 +69,21 @@ router.get("/users/:district/:blood_group", async (req, res) => {
         res.status(500).json(error);
     }
 });
+router.get("/users/search/:district/:blood_group", async (req, res) => {
+    try {
+        const { search, selected } = req.query;
+        const {district,blood_group} = req.params;
+    
+        let users;
+        if (selected === "name") {
+            users = await User.find({ name: { $regex: search, $options: "i" }, district, blood_group });
+        } else if (selected === "place") {
+            users = await User.find({ place: { $regex: search, $options: "i" }, district, blood_group });
+        }
+
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 module.exports = router;
